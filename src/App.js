@@ -1,11 +1,16 @@
 import "./App.css";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import FlagsList from "./FlagsList";
+import Modal from "./Modal";
 
 function App() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
+  const [modalData, setModalData] = useState('');
+  const [showModal, setshowModal] = useState(false);
 
+  const modal = useRef()
   const fetchFlags = () => {
     return axios.get("https://restcountries.com/v3.1/all").then((res) => {
       console.log(res.data);
@@ -17,54 +22,38 @@ function App() {
     fetchFlags();
   }, []);
 
-  function renderFlags(){
-    if(search !== ''){
-    const names = data.filter(item=>{
-      let name = item.name.common.trim().toLowerCase()
-      if(name.includes(search.trim().toLowerCase())) {
-        return item
-      }
-      else{
-        return ''
-      }
-    })
-    console.log(names)
-    return (
-      <div>
-      {names.map((item, key) => {
-        return !item ? '' :(
-          <>
-            <img alt={`Flag of ${item.name.common}`} src={item.flags.png}></img>
-            <p key={key}>{item.name.common}</p>
-          </>
-        );
-      })}
-      </div>
-    )
-  }else{
-    return(
-      <div>
-      {data.map((item, key) => {
-        return !item ? '' :(
-          <>
-            <img alt={`Flag of ${item.name.common}`} src={item.flags.png}></img>
-            <p key={key}>{item.name.common}</p>
-          </>
-        );
-      })}
-      </div>
-    )
+
+  function displayModal(){
+    setshowModal(true)
   }
+  function hideModal(){
+    setshowModal(false)
   }
+
+  function printData(dado){
+    console.log(dado);
+  }
+
+  const setDataForModal = (item)=>{
+    console.log(item.name.common)
+    setModalData(item.name.common)
+    displayModal()
+  }
+
 
   return (
     <div>
+      <Modal show={showModal} handleClose={hideModal}>
+        <p>{modalData}</p>
+        {printData(modalData)}
+      </Modal>
+      <button type="button" onClick={displayModal}>Show modal</button>
       <span>
             <label htmlFor="searchFlags">Search</label>
             <input value={search} id="searchFlags" type="text" onChange={e=>setSearch(e.target.value)}></input>
-            </span>
+      </span>
       <div>
-        {renderFlags()}
+        <FlagsList data={data} search={search} modalData={setDataForModal}></FlagsList>
       </div>
     </div>
   );
