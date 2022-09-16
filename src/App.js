@@ -1,8 +1,12 @@
 import "./App.css";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import FlagsList from "./FlagsList";
-import Modal from "./Modal";
+import { useEffect, useState, useMemo } from "react";
+import FlagsList from "./components/FlagsList";
+import Modal from "./components/Modal";
+import { GlobalStyles } from "./styles/GlobalStyle";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./styles/Theme";
+
 
 function App() {
   const [data, setData] = useState([]);
@@ -10,7 +14,7 @@ function App() {
   const [modalData, setModalData] = useState('');
   const [showModal, setshowModal] = useState(false);
 
-  const modal = useRef()
+
   const fetchFlags = () => {
     return axios.get("https://restcountries.com/v3.1/all").then((res) => {
       console.log(res.data);
@@ -43,6 +47,8 @@ function App() {
 
   return (
     <div>
+      <ThemeProvider theme={theme}>
+      <GlobalStyles></GlobalStyles>
       <Modal show={showModal} handleClose={hideModal}>
         <p>{modalData}</p>
         {printData(modalData)}
@@ -55,6 +61,7 @@ function App() {
       <div>
         <FlagsList data={data} search={search} modalData={setDataForModal}></FlagsList>
       </div>
+      </ThemeProvider>
     </div>
   );
 }
