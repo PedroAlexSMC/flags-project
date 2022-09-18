@@ -4,7 +4,10 @@ import styled from 'styled-components'
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 400px;
+    max-height: 400px;
     max-width: 300px;
     margin: 25px;
     box-shadow:9px 9px 10px rgba(0, 0, 0, 0.1);
@@ -19,13 +22,12 @@ const TextContainer = styled.div`
 `
 
 const Image = styled.img`
-    width: 100%;
-    height: fit-content;
+    width: 300px;
 `
 const CountryName = styled.h4`
     font-weight: 800;
     font-size: 24px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 `
 const CountryData = styled.span`
     font-weight: 300;
