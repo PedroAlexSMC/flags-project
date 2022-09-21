@@ -1,5 +1,6 @@
 import "./App.css";
 import axios from "axios";
+import styled from "styled-components";
 import { useEffect, useState, useMemo, useContext } from "react";
 import FlagsList from "./components/FlagsList";
 import Modal from "./components/Modal";
@@ -7,25 +8,44 @@ import { GlobalStyles } from "./styles/GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/Theme";
 import { useFlags, FlagContext } from "./provider/flagsProvider";
-import styled from "styled-components";
+import searchSvg from "./assets/search-outline.svg";
+import {
+  SearchIcon,
+  SearchInput,
+  SearchContainer,
+} from "./styles/topSectionComponents";
+import HeaderComponents from "./styles/HeaderComponents";
 
-const CardGrid = styled.div`
+export const CardGrid = styled.div`
   display: grid;
   width: 100vw;
   height: 100%;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   justify-items: center;
   gap: 10px;
   padding-left: 50px;
   padding-right: 50px;
+
+  @media screen and (max-width: 1890px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media screen and (max-width: 1560px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (max-width: 1168px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 789px) {
+    grid-template-columns: repeat(1, 1fr);
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 `;
-const SearchInput = styled.input`
-  min-width: 500px;
-  border: none;
-  box-shadow: 9px 9px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  height: 70px;
-  padding: 20px;
+export const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: ${(props) => props.theme.backgroundColor};
+  padding-top: 100px;
 `;
 
 function App() {
@@ -34,6 +54,7 @@ function App() {
   const [modalData, setModalData] = useState("");
   const [showModal, setshowModal] = useState(false);
   const { dataFlags, changeDataFlags } = useContext(FlagContext);
+  const [currTheme, setTheme] = useState(theme.light);
   console.log("dataFlags", dataFlags);
 
   const fetchFlags = () => {
@@ -66,32 +87,52 @@ function App() {
 
   return (
     <div>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={currTheme}>
         <GlobalStyles></GlobalStyles>
-        <Modal show={showModal} handleClose={hideModal}>
-          <p>{modalData}</p>
-          {printData(modalData)}
-        </Modal>
-        <button type="button" onClick={displayModal}>
-          Show modal
-        </button>
-        <span>
-          <label htmlFor="searchFlags">Search</label>
-          <SearchInput
-            value={search}
-            id="searchFlags"
-            placeholder="Search for a country..."
-            type="text"
-            onChange={(e) => setSearch(e.target.value)}
-          ></SearchInput>
-        </span>
-        <CardGrid>
-          <FlagsList
-            data={dataFlags}
-            search={search}
-            modalData={setDataForModal}
-          ></FlagsList>
-        </CardGrid>
+        <Container>
+          <Modal show={showModal} handleClose={hideModal}>
+            <p>{modalData}</p>
+            {printData(modalData)}
+          </Modal>
+          <HeaderComponents
+            currTheme={currTheme}
+            themes={theme}
+            setter={setTheme}
+          ></HeaderComponents>
+          <SearchContainer>
+            <SearchIcon
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
+                fill="none"
+                strokeMiterlimit="10"
+                strokeWidth="32"
+              />
+              <path
+                strokeLinecap="round"
+                strokeMiterlimit="10"
+                strokeWidth="32"
+                d="M338.29 338.29L448 448"
+              />
+            </SearchIcon>
+            <SearchInput
+              value={search}
+              id="searchFlags"
+              placeholder="Search for a country..."
+              type="text"
+              onChange={(e) => setSearch(e.target.value)}
+            ></SearchInput>
+          </SearchContainer>
+          <CardGrid>
+            <FlagsList
+              data={dataFlags}
+              search={search}
+              modalData={setDataForModal}
+            ></FlagsList>
+          </CardGrid>
+        </Container>
       </ThemeProvider>
     </div>
   );
