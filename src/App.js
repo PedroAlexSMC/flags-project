@@ -80,8 +80,16 @@ function App() {
   }
 
   const setDataForModal = (item) => {
-    console.log(item.name.common);
-    setModalData(item.name.common);
+    setModalData({
+      countryName: item.name.common,
+      nativeNames: Object.values(item.name.nativeName),
+      capital: item.capital,
+      flag: item.flags.png,
+      region: item.region,
+      currencies: Object.values(item.currencies),
+      languages: Object.values(item.languages),
+      population: item.population,
+    });
     displayModal();
   };
 
@@ -90,10 +98,11 @@ function App() {
       <ThemeProvider theme={currTheme}>
         <GlobalStyles></GlobalStyles>
         <Container>
-          <Modal show={showModal} handleClose={hideModal}>
-            <p>{modalData}</p>
-            {printData(modalData)}
-          </Modal>
+          <Modal
+            show={showModal}
+            handleClose={hideModal}
+            data={modalData}
+          ></Modal>
           <HeaderComponents
             currTheme={currTheme}
             themes={theme}

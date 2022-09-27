@@ -10,6 +10,7 @@ const Container = styled.div`
   max-height: 400px;
   max-width: 300px;
   margin: 25px;
+  overflow: overlay;
   background-color: ${(props) => props.theme.elementsColor};
   box-shadow: 9px 9px 10px rgba(0, 0, 0, 0.1);
 `;
