@@ -48,6 +48,10 @@ export const Container = styled.div`
   padding-top: 100px;
 `;
 
+const GeneralBackground = styled.div`
+  background-color: ${(props) => props.theme.backgroundColor};
+`;
+
 function App() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
@@ -94,7 +98,7 @@ function App() {
   };
 
   return (
-    <div>
+    <GeneralBackground>
       <ThemeProvider theme={currTheme}>
         <GlobalStyles></GlobalStyles>
         <Container>
@@ -143,7 +147,7 @@ function App() {
           </CardGrid>
         </Container>
       </ThemeProvider>
-    </div>
+    </GeneralBackground>
   );
 }
 
