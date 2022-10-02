@@ -41,6 +41,10 @@ const CountryTitle = styled.em`
   font-size: 16px;
 `;
 
+const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", {
+  maximumFractionDigits: 0,
+});
+
 export default function Card({ flag, country, population, region, capital }) {
   return (
     <>
@@ -49,7 +53,8 @@ export default function Card({ flag, country, population, region, capital }) {
         <TextContainer>
           <CountryName>{country}</CountryName>
           <p>
-            <strong>Population:</strong> <CountryData>{population}</CountryData>
+            <strong>Population:</strong>{" "}
+            <CountryData>{INTEGER_FORMATTER.format(population)}</CountryData>
           </p>
           <p>
             <strong>Region:</strong> <CountryData>{region}</CountryData>

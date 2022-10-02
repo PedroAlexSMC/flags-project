@@ -1,6 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
-import { useRef } from "react";
 import styled from "styled-components";
 
 const ModalBackContainer = styled.div`
@@ -14,7 +12,7 @@ const ModalBackContainer = styled.div`
 
 const ModalContainer = styled.section`
   position: fixed;
-  background: white;
+  background: ${(props) => props.theme.backgroundColor};
   width: 80vw;
   height: 80vh;
   border-radius: 30px;
@@ -48,11 +46,13 @@ const CountryTitle = styled.h2`
   font-size: 35px;
   font-weight: 800;
   padding-bottom: 50px;
+  color: ${(props) => props.theme.textColor};
 `;
 
 const CountryDetails = styled.p`
   font-size: 20px;
   line-height: 40px;
+  color: ${(props) => props.theme.textColor};
 `;
 
 const ContentWrapper = styled.div`
@@ -81,20 +81,21 @@ const ButtonBack = styled.button`
   height: 40px;
   font-size: 16px;
   border: none;
-  background-color: white;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.elementsColor};
   cursor: pointer;
 `;
 
-export default function Modal({ handleClose, show, children, data }) {
+export default function Modal({ handleClose, show, data }) {
   const currencies = () => {
-    if (data.currencies != undefined) {
+    if (data.currencies !== undefined) {
       const moneyList = data.currencies.map((item) => item.name).join(", ");
       return moneyList;
     } else return "";
   };
 
   const languages = () => {
-    if (data.languages != undefined) {
+    if (data.languages !== undefined) {
       const languageList = Object.values(data.languages).join(", ");
       return languageList;
     } else return "";

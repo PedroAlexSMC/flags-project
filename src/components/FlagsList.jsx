@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card";
 import styled from "styled-components";
+import { useMemo } from "react";
 
 const CardLink = styled.a`
   cursor: pointer;
@@ -8,14 +9,49 @@ const CardLink = styled.a`
   height: auto;
 `;
 
-export default function FlagsList({ data, search, modal, modalData }) {
+export default function FlagsList({ data, search, filter, modalData }) {
   function handleClick(data) {
     modalData(data);
   }
 
-  function renderFlags() {
+  const applyFilter = useMemo(() => {
+    switch (filter) {
+      case "All":
+        return renderFlags(data);
+      case "Africa":
+        const filteredAfrica = data.filter((item) => {
+          return item.region === filter;
+        });
+        return renderFlags(filteredAfrica);
+      case "Asia":
+        const filteredAsia = data.filter((item) => {
+          return item.region === filter;
+        });
+        return renderFlags(filteredAsia);
+      case "Oceania":
+        const filteredOceania = data.filter((item) => {
+          return item.region === filter;
+        });
+        return renderFlags(filteredOceania);
+      case "Europe":
+        const filteredEurope = data.filter((item) => {
+          return item.region === filter;
+        });
+        return renderFlags(filteredEurope);
+      case "Americas":
+        const filteredAmericas = data.filter((item) => {
+          return item.region === filter;
+        });
+        return renderFlags(filteredAmericas);
+      default:
+        return renderFlags(data);
+    }
+  });
+
+  function renderFlags(flagsdata) {
+    //Render based on what is in the Search Input
     if (search !== "") {
-      const names = data.filter((item) => {
+      const names = flagsdata.filter((item) => {
         let name = item.name.common.trim().toLowerCase();
         if (name.includes(search.trim().toLowerCase())) {
           return item;
@@ -23,7 +59,6 @@ export default function FlagsList({ data, search, modal, modalData }) {
           return "";
         }
       });
-      console.log(names);
       return (
         <>
           {names.map((item, key) => {
@@ -44,10 +79,12 @@ export default function FlagsList({ data, search, modal, modalData }) {
           })}
         </>
       );
-    } else {
+    }
+    //Full render of the flags
+    else {
       return (
         <>
-          {data.map((item, key) => {
+          {flagsdata.map((item, key) => {
             return !item ? (
               ""
             ) : (
@@ -67,5 +104,5 @@ export default function FlagsList({ data, search, modal, modalData }) {
       );
     }
   }
-  return <>{renderFlags()}</>;
+  return <>{applyFilter}</>;
 }

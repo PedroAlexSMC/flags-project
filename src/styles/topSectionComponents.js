@@ -1,12 +1,34 @@
 import styled from "styled-components";
 import React from "react";
 
+export const HeaderContainer = styled.div`
+  width: 100%;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const Selector = styled.select`
+  width: 200px;
+  height: 70px;
+  background-color: ${(props) => props.theme.elementsColor};
+  color: ${(props) => props.theme.textColor};
+  box-shadow: 9px 9px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  font-size: 16px;
+  padding: 10px;
+  margin-right: 50px;
+  font-weight: 600;
+`;
+
 export const SearchInput = styled.input`
   min-width: 500px;
   border: none;
   border-radius: 5px;
   height: 70px;
   padding: 20px;
+  color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.elementsColor};
 
   @media screen and (max-width: 760px) {

@@ -40,11 +40,12 @@ const HeaderDarkModeSwitcher = styled.a`
 
 export default function HeaderComponents({ currTheme, themes, setter }) {
   const handleThemeChange = () => {
-    console.log(currTheme, themes, setter);
-    if (currTheme === themes.light) {
-      setter(themes.dark);
-    } else {
+    if (localStorage.getItem("theme") === "dark") {
+      localStorage.setItem("theme", "light");
       setter(themes.light);
+    } else {
+      localStorage.setItem("theme", "dark");
+      setter(themes.dark);
     }
   };
   return (
