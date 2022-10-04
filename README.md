@@ -30,8 +30,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Github URL: [Github](https://github.com/PedroAlexSMC/flags-project)
+- Live Site URL: [Live Demo](https://countries-data-vert.vercel.app/)
 
 ## My process
 
