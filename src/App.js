@@ -1,4 +1,3 @@
-import "./App.css";
 import axios from "axios";
 import styled from "styled-components";
 import { useEffect, useState, useContext } from "react";
@@ -14,8 +13,8 @@ import {
   SearchIcon,
   SearchInput,
   SearchContainer,
-} from "./styles/topSectionComponents";
-import HeaderComponents from "./styles/HeaderComponents";
+} from "./components/topSectionComponents";
+import HeaderComponents from "./components/HeaderComponents";
 
 export const CardGrid = styled.div`
   display: grid;

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { theme } from "./Theme";
+import { theme } from "../styles/Theme";
 
 const HeaderTitle = styled.h1`
   font-size: 30px;
